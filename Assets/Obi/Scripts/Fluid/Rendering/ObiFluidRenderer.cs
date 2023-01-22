@@ -7,54 +7,54 @@ using UnityEngine.Rendering;
 namespace Obi
 {
 
-	/**
+    /**
 	 * High-quality fluid rendering, supports both 2D and 3D. Performs depth testing against the scene, 
 	 * considers reflection, refraction, lighting, transmission, and foam.
 	 */
-	public class ObiFluidRenderer : ObiBaseFluidRenderer
-	{
+    public class ObiFluidRenderer : ObiBaseFluidRenderer
+    {
         public FluidRenderingUtils.FluidRendererSettings settings;
 
         // materials
         private Material depth_BlurMaterial;
-		private Material normal_ReconstructMaterial;
-		private Material thickness_Material;
+        private Material normal_ReconstructMaterial;
+        private Material thickness_Material;
         private Material color_Material;
         private Material fluid_Material;
         private FluidRenderingUtils.FluidRenderTargets renderTargets;
 
         protected override void Setup()
         {
-	
-			GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
+
+            GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
 
             if (depth_BlurMaterial == null)
-				depth_BlurMaterial = CreateMaterial(Shader.Find("Hidden/ScreenSpaceCurvatureFlow"));
-	
-			if (normal_ReconstructMaterial == null)
-				normal_ReconstructMaterial = CreateMaterial(Shader.Find("Hidden/NormalReconstruction"));
-	
-			if (thickness_Material == null)
-				thickness_Material = CreateMaterial(Shader.Find("Hidden/FluidThickness"));
+                depth_BlurMaterial = CreateMaterial(Shader.Find("Hidden/ScreenSpaceCurvatureFlow"));
 
-            if(color_Material == null)
+            if (normal_ReconstructMaterial == null)
+                normal_ReconstructMaterial = CreateMaterial(Shader.Find("Hidden/NormalReconstruction"));
+
+            if (thickness_Material == null)
+                thickness_Material = CreateMaterial(Shader.Find("Hidden/FluidThickness"));
+
+            if (color_Material == null)
                 color_Material = CreateMaterial(Shader.Find("Obi/Fluid/Colors/FluidColorsBlend"));
 
-            if(fluid_Material == null)
+            if (fluid_Material == null)
                 fluid_Material = CreateMaterial(Shader.Find("Obi/Fluid/FluidShading"));
 
             bool shadersSupported = depth_BlurMaterial && normal_ReconstructMaterial && thickness_Material && color_Material && fluid_Material;
-	
-			if (!shadersSupported || 
-				!SystemInfo.SupportsRenderTextureFormat (RenderTextureFormat.Depth) ||
-				!SystemInfo.SupportsRenderTextureFormat (RenderTextureFormat.RFloat) ||
-				!SystemInfo.SupportsRenderTextureFormat (RenderTextureFormat.ARGBHalf)
-	 			)
-	        {
-	            enabled = false;
-				Debug.LogWarning("Obi Fluid Renderer not supported in this platform.");
-	            return;
-	        }
+
+            if (!shadersSupported ||
+                !SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.Depth) ||
+                !SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.RFloat) ||
+                !SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBHalf)
+                 )
+            {
+                enabled = false;
+                Debug.LogWarning("Obi Fluid Renderer not supported in this platform.");
+                return;
+            }
 
             renderTargets = new FluidRenderingUtils.FluidRenderTargets();
             renderTargets.refraction = Shader.PropertyToID("_Refraction");
@@ -65,40 +65,40 @@ namespace Obi
             renderTargets.smoothDepth = Shader.PropertyToID("_FluidSurface"); //smoothed depth
             renderTargets.normals = Shader.PropertyToID("_FluidNormals");
 
-            Shader.SetGlobalMatrix("_Camera_to_World",currentCam.cameraToWorldMatrix);
-			Shader.SetGlobalMatrix("_World_to_Camera",currentCam.worldToCameraMatrix);
-			Shader.SetGlobalMatrix("_InvProj",currentCam.projectionMatrix.inverse);  
-	
-			float fovY = currentCam.fieldOfView;
-	        float far = currentCam.farClipPlane;
-	        float y = currentCam.orthographic ? 2 * currentCam.orthographicSize: 2 * Mathf.Tan (fovY * Mathf.Deg2Rad * 0.5f) * far;
-	        float x = y * currentCam.aspect;
-			Shader.SetGlobalVector("_FarCorner",new Vector3(x,y,far));
-	
-			depth_BlurMaterial.SetFloat("_BlurScale",currentCam.orthographic ? 1 : currentCam.pixelWidth/currentCam.aspect * (1.0f/Mathf.Tan(fovY * Mathf.Deg2Rad * 0.5f)));
-			depth_BlurMaterial.SetFloat("_BlurRadiusWorldspace", settings.blurRadius);
-		}
+            Shader.SetGlobalMatrix("_Camera_to_World", currentCam.cameraToWorldMatrix);
+            Shader.SetGlobalMatrix("_World_to_Camera", currentCam.worldToCameraMatrix);
+            Shader.SetGlobalMatrix("_InvProj", GL.GetGPUProjectionMatrix(currentCam.projectionMatrix, false).inverse);
 
-		protected override void Cleanup()
-		{
-			if (depth_BlurMaterial != null)
-				DestroyImmediate (depth_BlurMaterial);
-			if (normal_ReconstructMaterial != null)
-				DestroyImmediate (normal_ReconstructMaterial);
-			if (thickness_Material != null)
-				DestroyImmediate (thickness_Material);
+            float fovY = currentCam.fieldOfView;
+            float far = currentCam.farClipPlane;
+            float y = currentCam.orthographic ? 2 * currentCam.orthographicSize : 2 * Mathf.Tan(fovY * Mathf.Deg2Rad * 0.5f) * far;
+            float x = y * currentCam.aspect;
+            Shader.SetGlobalVector("_FarCorner", new Vector3(x, y, far));
+
+            depth_BlurMaterial.SetFloat("_BlurScale", currentCam.orthographic ? 1 : currentCam.pixelWidth / currentCam.aspect * (1.0f / Mathf.Tan(fovY * Mathf.Deg2Rad * 0.5f)));
+            depth_BlurMaterial.SetFloat("_BlurRadiusWorldspace", settings.blurRadius);
+        }
+
+        protected override void Cleanup()
+        {
+            if (depth_BlurMaterial != null)
+                DestroyImmediate(depth_BlurMaterial);
+            if (normal_ReconstructMaterial != null)
+                DestroyImmediate(normal_ReconstructMaterial);
+            if (thickness_Material != null)
+                DestroyImmediate(thickness_Material);
             if (color_Material)
                 DestroyImmediate(color_Material);
             if (fluid_Material)
                 DestroyImmediate(fluid_Material);
         }
-	
-		public override void UpdateFluidRenderingCommandBuffer()
-		{
-			renderFluid.Clear();
-	
-			if (particleRenderers == null || fluid_Material == null || color_Material == null)
-				return;
+
+        public override void UpdateFluidRenderingCommandBuffer()
+        {
+            renderFluid.Clear();
+
+            if (particleRenderers == null || fluid_Material == null || color_Material == null)
+                return;
 
             fluid_Material.SetInt("_BlendSrc", (int)settings.blendSource);
             fluid_Material.SetInt("_BlendDst", (int)settings.blendDestination);
@@ -106,7 +106,7 @@ namespace Obi
 
             color_Material.SetInt("_BlendSrc", (int)settings.particleBlendSource);
             color_Material.SetInt("_BlendDst", (int)settings.particleBlendDestination);
-            color_Material.SetInt("_ZWrite", settings.particleZWrite?1:0);
+            color_Material.SetInt("_ZWrite", settings.particleZWrite ? 1 : 0);
 
             // generate color / thickness buffer:
             renderFluid.GetTemporaryRT(renderTargets.thickness1, -settings.thicknessDownsample, -settings.thicknessDownsample, 16, FilterMode.Bilinear, RenderTextureFormat.ARGBHalf);
@@ -206,8 +206,7 @@ namespace Obi
 
             // final pass (shading):
             renderFluid.Blit(renderTargets.thickness1, BuiltinRenderTextureType.CameraTarget, fluid_Material);
-		}	
-	
-	}
-}
+        }
 
+    }
+}
