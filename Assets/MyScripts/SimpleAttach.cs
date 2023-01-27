@@ -4,6 +4,8 @@ using UnityEngine;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
 
+
+
 public class SimpleAttach : MonoBehaviour
 {
     private Interactable interactable;
@@ -17,7 +19,7 @@ public class SimpleAttach : MonoBehaviour
 
     private void OnHandHoverBegin(Hand hand)
     {
-        hand.ShowGrabHint();
+        hand.ShowGrabHint();        
     }
 
     private void OnHandHoverEnd(Hand hand)
