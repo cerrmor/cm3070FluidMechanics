@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
-public class ButtonEffect : MonoBehaviour
+public class ButtonPressedEffect : MonoBehaviour
 {
     public void OnButtonDown(Hand fromHand)
     {
