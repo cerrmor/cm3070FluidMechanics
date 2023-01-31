@@ -8,9 +8,10 @@ public class ButtonPadController : MonoBehaviour
 {
     //ajustiable array for variable number of buttons
     public HoverButton[] hoverButton;
-
+    
     public List<int> answersList = new List<int>();
     private List<int> buttonsPressedList = new List<int>();
+    private int numCorrectAnswer = 0;
     [SerializeField] private float resetTime = 2f;
     [SerializeField] private string successText;
     [Header("Button Entry Events")]
@@ -21,65 +22,91 @@ public class ButtonPadController : MonoBehaviour
     private bool hasUsedCorrectCode = false;
     public bool HasUsedCorrectCode { get { return hasUsedCorrectCode; } }
 
-    //prefab for testing purpose only
-    public GameObject prefab;
+    private void Awake()
+    {
+        numCorrectAnswer = answersList.Count;
+    }
 
     void Start()
     {
         //creates an event listener for each button in the array
         for (var i = 0; i < hoverButton.Length; i++)
         {
-            var temp = i;
-            hoverButton[i].onButtonDown.AddListener((buttonId) => { OnButtonDown(temp); }); 
-            //hoverButton[i].onButtonDown.AddListener(OnButtonDown); 
+            int tempVar = i;
+            //lamda function uses the index element to set the button id
+            hoverButton[i].onButtonDown.AddListener((buttonId) => { OnButtonDown(tempVar); });  
         }
-        
+        Debug.Log(numCorrectAnswer);
     }
 
-    private void doSomething(int button)
-    {
-        Debug.Log(button);
-    }
     private void OnButtonDown(int buttonId)
     {
-        //if (buttonsPressedList.Count >= 2) return;
-        //buttonsPressedList.Add(selectedButton);
+        if (buttonsPressedList.Count >= numCorrectAnswer ) return;
+        if (buttonsPressedList.Contains(buttonId)) return;
+        else buttonsPressedList.Add(buttonId);
 
-        //Debug.Log(get);
-        Debug.Log(buttonId);
-        StartCoroutine(DoPlant());
-    }
-
-    //will generate a flower of random colour for every button press
-    private IEnumerator DoPlant()
-    {
-        GameObject planting = GameObject.Instantiate<GameObject>(prefab);
-        planting.transform.position = this.transform.position;
-        planting.transform.rotation = Quaternion.Euler(0, Random.value * 360f, 0);
-
-        planting.GetComponentInChildren<MeshRenderer>().material.SetColor("_TintColor", Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
-
-        Rigidbody rigidbody = planting.GetComponent<Rigidbody>();
-        if (rigidbody != null)
-            rigidbody.isKinematic = true;
-
-
-        Vector3 initialScale = Vector3.one * 0.01f;
-        Vector3 targetScale = Vector3.one * (1 + (Random.value * 0.25f));
-
-        float startTime = Time.time;
-        float overTime = 0.5f;
-        float endTime = startTime + overTime;
-
-        while (Time.time < endTime)
+        //sets the color of the pressed button to cyan to indicate a selection
+        for (var i = 0; i < buttonsPressedList.Count; i++)
         {
-            planting.transform.localScale = Vector3.Slerp(initialScale, targetScale, (Time.time - startTime) / overTime);
-            yield return null;
+            if (buttonsPressedList[i] == buttonId)
+            {
+                Debug.Log(buttonId);
+                ColorSelf(Color.cyan,buttonId);
+            }
         }
 
+        if (buttonsPressedList.Count >= numCorrectAnswer) checkAnswers();
+    }
 
-        if (rigidbody != null)
-            rigidbody.isKinematic = false;
+    private void checkAnswers()
+    {
+        for(var i = 0; i < answersList.Count; i++)
+        {
+            if (!answersList.Contains(buttonsPressedList[i]))
+            {
+                IncorrectAnswer();
+                return;
+            }
+        }
+        CorrectAnswer();
+    }
+
+    private void CorrectAnswer()
+    {
+        if(allowMultipleActivations)
+        {
+            onCorrectAnswer.Invoke();
+            StartCoroutine(ResetButtons());
+        }
+        else if(!allowMultipleActivations && !hasUsedCorrectCode)
+        {
+            onCorrectAnswer.Invoke();
+            hasUsedCorrectCode = true;
+
+        }
+
+    }
+
+    private void IncorrectAnswer()
+    {
+        onIncorrectAnswer.Invoke();
+        StartCoroutine(ResetButtons());
+    }
+
+    private void ColorSelf(Color newColor,int buttonId)
+    {
+        Renderer renderers = hoverButton[buttonId].GetComponentInChildren<Renderer>();
+        renderers.material.color = newColor;
+    }
+
+    IEnumerator ResetButtons()
+    {
+        yield return new WaitForSeconds(resetTime);
+        for (int i = 0; i < buttonsPressedList.Count; i++) 
+        { 
+            ColorSelf(Color.gray, buttonsPressedList[i]); 
+        }
+        buttonsPressedList.Clear();
     }
 }
 

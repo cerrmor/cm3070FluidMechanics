@@ -769,7 +769,7 @@ MonoBehaviour:
   - {fileID: 472287742}
   - {fileID: 371390944}
   - {fileID: 965924211}
-  answersList: 
+  answersList: 0300000000000000
   resetTime: 2
   successText: Well Done!
   onCorrectAnswer:
