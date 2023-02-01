@@ -21,8 +21,8 @@ SAMPLER(sampler_CameraDepthTexture);
 
 float Z2EyeDepth(float z) 
 {
-    if (unity_OrthoParams.w < 0.5)
-        return LinearEyeDepth(z); // Unity's LinearEyeDepth only works for perspective cameras.
+	if (unity_OrthoParams.w < 0.5)
+		return LinearEyeDepth(z); // Unity's LinearEyeDepth only works for perspective cameras.
 	else{
 
 		// since we're not using LinearEyeDepth in orthographic, we must reverse depth direction ourselves:
@@ -37,12 +37,12 @@ float Z2EyeDepth(float z)
 // returns eye space position from linear eye depth.
 float3 EyePosFromDepth(float2 uv,float eyeDepth){
 
-	if (unity_OrthoParams.w < 0.5){
-		float3 ray = (float3(-0.5f,-0.5f,0) + float3(uv,-1)) * _FarCorner;
-		return ray * eyeDepth / _FarCorner.z;
-	}else{
-		return float3((uv-half2(0.5f,0.5f)) * _FarCorner.xy,-eyeDepth);
-	}
+	eyeDepth = (1.0f / eyeDepth - _ZBufferParams.w) / _ZBufferParams.z;
+
+	uv = uv * 2 - 1;
+	float4 pos = mul(_InvProj, float4(uv, eyeDepth, 1.0));
+	return pos / pos.w;
+
 }
 
 void SetupEyeSpaceFragment(in float2 uv, out float3 eyePos, out float3 eyeNormal)
@@ -78,7 +78,7 @@ float OutputFragmentDepth(in float3 eyePos)
 		depth = 1-depth;
 	#endif
 
-    return depth;
+		return depth;
 }
 
 #endif

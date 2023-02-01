@@ -2,6 +2,7 @@
 #define OBIUTILS_INCLUDED
 
 float4x4 _Camera_to_World;
+float4x4 _InvProj;
 
 // abstract texture declaration/sampling over built-in and SRPs:
 #ifndef TEXTURE2D
