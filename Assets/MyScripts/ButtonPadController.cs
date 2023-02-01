@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Valve.VR.InteractionSystem;
+using TMPro;
 
 public class ButtonPadController : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class ButtonPadController : MonoBehaviour
     public List<int> answersList = new List<int>();
     private List<int> buttonsPressedList = new List<int>();
     private int numCorrectAnswer = 0;
+    [SerializeField] private TextMeshPro displayText;
     [SerializeField] private float resetTime = 2f;
+    [SerializeField] private string questionText;
     [SerializeField] private string successText;
     [Header("Button Entry Events")]
     public UnityEvent onCorrectAnswer;
@@ -25,6 +28,7 @@ public class ButtonPadController : MonoBehaviour
     private void Awake()
     {
         numCorrectAnswer = answersList.Count;
+        displayText.text = questionText;
     }
 
     void Start()
@@ -36,7 +40,6 @@ public class ButtonPadController : MonoBehaviour
             //lamda function uses the index element to set the button id
             hoverButton[i].onButtonDown.AddListener((buttonId) => { OnButtonDown(tempVar); });  
         }
-        Debug.Log(numCorrectAnswer);
     }
 
     private void OnButtonDown(int buttonId)
@@ -50,7 +53,6 @@ public class ButtonPadController : MonoBehaviour
         {
             if (buttonsPressedList[i] == buttonId)
             {
-                Debug.Log(buttonId);
                 ColorSelf(Color.cyan,buttonId);
             }
         }
@@ -76,12 +78,16 @@ public class ButtonPadController : MonoBehaviour
         if(allowMultipleActivations)
         {
             onCorrectAnswer.Invoke();
+            displayText.color = Color.yellow;
+            displayText.text = successText;
             StartCoroutine(ResetButtons());
         }
         else if(!allowMultipleActivations && !hasUsedCorrectCode)
         {
             onCorrectAnswer.Invoke();
             hasUsedCorrectCode = true;
+            displayText.color = Color.yellow;
+            displayText.text = successText;
 
         }
 
@@ -90,6 +96,7 @@ public class ButtonPadController : MonoBehaviour
     private void IncorrectAnswer()
     {
         onIncorrectAnswer.Invoke();
+        displayText.color = Color.red;
         StartCoroutine(ResetButtons());
     }
 
@@ -107,6 +114,8 @@ public class ButtonPadController : MonoBehaviour
             ColorSelf(Color.gray, buttonsPressedList[i]); 
         }
         buttonsPressedList.Clear();
+        displayText.color = Color.white;
+        displayText.text = questionText;
     }
 }
 
