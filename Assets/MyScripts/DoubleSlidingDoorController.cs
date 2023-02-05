@@ -51,10 +51,10 @@ public class DoubleSlidingDoorController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		leftDoorClosedPosition	= new Vector3 (0f, 0f, 0f);
-		leftDoorOpenPosition	= new Vector3 (0f, 0f, slideDistance);
+		leftDoorOpenPosition	= new Vector3 (slideDistance, 0f, 0f);
 
 		rightDoorClosedPosition	= new Vector3 (0f, 0f, 0f);
-		rightDoorOpenPosition	= new Vector3 (0f, 0f, -slideDistance);
+		rightDoorOpenPosition	= new Vector3 (slideDistance, 0f, 0f);
 
 		audioSource = GetComponent<AudioSource>();
 	}

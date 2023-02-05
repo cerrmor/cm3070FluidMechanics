@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 3390482}
   - component: {fileID: 2360762}
   - component: {fileID: 6573736}
+  - component: {fileID: 6526228001390743291}
   m_Layer: 0
   m_Name: Floor_01
   m_TagString: Untagged
@@ -158,6 +159,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0000029, y: 3.000002, z: 0.02}
   m_Center: {x: -1.5000005, y: -1.5000007, z: 0.00000013113421}
+--- !u!114 &6526228001390743291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  material: {fileID: 11400000, guid: d368f2c47473d4bfb8dd9f08073cb403, type: 2}
+  filter: -65535
+  m_SourceCollider: {fileID: 6573736}
+  m_DistanceField: {fileID: 0}
 --- !u!1 &112936
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,6 +188,7 @@ GameObject:
   - component: {fileID: 3372520}
   - component: {fileID: 2399722}
   - component: {fileID: 6582718}
+  - component: {fileID: 1750482201250532705}
   m_Layer: 0
   m_Name: Floor_01
   m_TagString: Untagged
@@ -253,6 +272,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0000029, y: 3.000002, z: 0.02}
   m_Center: {x: -1.5000005, y: -1.5000007, z: 0.00000013113421}
+--- !u!114 &1750482201250532705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  material: {fileID: 11400000, guid: d368f2c47473d4bfb8dd9f08073cb403, type: 2}
+  filter: -65535
+  m_SourceCollider: {fileID: 6582718}
+  m_DistanceField: {fileID: 0}
 --- !u!1 &119278
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +428,7 @@ GameObject:
   - component: {fileID: 3327064}
   - component: {fileID: 2377122}
   - component: {fileID: 6578366}
+  - component: {fileID: 980415345343177958}
   m_Layer: 0
   m_Name: Floor_01
   m_TagString: Untagged
@@ -475,6 +512,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0000029, y: 3.000002, z: 0.02}
   m_Center: {x: -1.5000005, y: -1.5000007, z: 0.00000013113421}
+--- !u!114 &980415345343177958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  material: {fileID: 11400000, guid: d368f2c47473d4bfb8dd9f08073cb403, type: 2}
+  filter: -65535
+  m_SourceCollider: {fileID: 6578366}
+  m_DistanceField: {fileID: 0}
 --- !u!1 &123900
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,6 +780,7 @@ GameObject:
   - component: {fileID: 3348156}
   - component: {fileID: 2380016}
   - component: {fileID: 6500474}
+  - component: {fileID: 2228809076790796989}
   m_Layer: 0
   m_Name: Floor_01
   m_TagString: Untagged
@@ -809,6 +864,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0000029, y: 3.000002, z: 0.02}
   m_Center: {x: -1.5000005, y: -1.5000007, z: 0.00000013113421}
+--- !u!114 &2228809076790796989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  material: {fileID: 11400000, guid: d368f2c47473d4bfb8dd9f08073cb403, type: 2}
+  filter: -65535
+  m_SourceCollider: {fileID: 6500474}
+  m_DistanceField: {fileID: 0}
 --- !u!1 &151292
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,6 +924,7 @@ GameObject:
   - component: {fileID: 3301324}
   - component: {fileID: 2342306}
   - component: {fileID: 6535652}
+  - component: {fileID: 4060744854038479936}
   m_Layer: 0
   m_Name: Floor_01
   m_TagString: Untagged
@@ -935,6 +1008,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0000029, y: 3.000002, z: 0.02}
   m_Center: {x: -1.5000005, y: -1.5000007, z: 0.00000013113421}
+--- !u!114 &4060744854038479936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  material: {fileID: 11400000, guid: d368f2c47473d4bfb8dd9f08073cb403, type: 2}
+  filter: -65535
+  m_SourceCollider: {fileID: 6535652}
+  m_DistanceField: {fileID: 0}
 --- !u!1 &171276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1372,6 +1462,7 @@ GameObject:
   - component: {fileID: 3345294}
   - component: {fileID: 2398816}
   - component: {fileID: 6594698}
+  - component: {fileID: 1010193243649918627}
   m_Layer: 0
   m_Name: Floor_01
   m_TagString: Untagged
@@ -1455,6 +1546,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0000029, y: 3.000002, z: 0.02}
   m_Center: {x: -1.5000005, y: -1.5000007, z: 0.00000013113421}
+--- !u!114 &1010193243649918627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  material: {fileID: 11400000, guid: d368f2c47473d4bfb8dd9f08073cb403, type: 2}
+  filter: -65535
+  m_SourceCollider: {fileID: 6594698}
+  m_DistanceField: {fileID: 0}
 --- !u!1 &189400
 GameObject:
   m_ObjectHideFlags: 0
