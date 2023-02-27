@@ -7,7 +7,7 @@ public class LevelSwitch : MonoBehaviour
 {
     public int currLevel = 0;
 
-    public string[] levelNames = new string[2] { "dont know yet", "dont know yet" };
+    public string[] levelNames = new string[2] { "ExperimentalScene", "museum" };
 
     static LevelSwitch Switch = null;
 
@@ -28,5 +28,10 @@ public class LevelSwitch : MonoBehaviour
             currLevel = (currLevel + 1) % 2;
             SteamVR_LoadLevel.Begin(levelNames[currLevel]);
         }
+    }
+    public void loadLevel()
+    {
+        currLevel = (currLevel + 1) % 2;
+        SteamVR_LoadLevel.Begin(levelNames[currLevel]);
     }
 }

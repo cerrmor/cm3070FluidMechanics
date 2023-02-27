@@ -1891,10 +1891,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 472d30f9fa4a9344dba5865f34405b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Intensity: 4.03
-  Mass: 2.1
-  stiffness: 0.16
-  damping: 0.21
+  Intensity: 1
+  Mass: 0.5
+  stiffness: 0.01
+  damping: 0.5
 --- !u!135 &773470958
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5583,6 +5583,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5000501592277551566, guid: f64f76c48ca1f434faee5747174f50f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5000501592277553056, guid: f64f76c48ca1f434faee5747174f50f8, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -5682,6 +5686,10 @@ PrefabInstance:
     - target: {fileID: 5000501592429861183, guid: f64f76c48ca1f434faee5747174f50f8, type: 3}
       propertyPath: m_Name
       value: GameUtilities
+      objectReference: {fileID: 0}
+    - target: {fileID: 5000501592429861183, guid: f64f76c48ca1f434faee5747174f50f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5000917758914417642, guid: f64f76c48ca1f434faee5747174f50f8, type: 3}
       propertyPath: m_Layer
