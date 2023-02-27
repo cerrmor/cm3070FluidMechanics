@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - killer
+  - projectile
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Raycast
   - Water
   - UI
   - Characters
