@@ -5,7 +5,7 @@ using Obi;
 public class KillPartOnContact : MonoBehaviour
 {
     ObiSolver solver;
-
+    [SerializeField] private float lifeSpan = 0f;
     //ObiSolver.ObiCollisionEventArgs collisionEvent;
 
     void Awake()
@@ -47,7 +47,7 @@ public class KillPartOnContact : MonoBehaviour
                     ObiEmitter emitter = pa.actor as ObiEmitter;
 
                     if (emitter != null)
-                        emitter.life[pa.indexInActor] = 0;
+                        emitter.life[pa.indexInActor] = lifeSpan;
                 }
             }
         }

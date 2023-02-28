@@ -6,27 +6,25 @@ using Valve.VR;
 public class LevelSwitch : MonoBehaviour
 {
     public int currLevel = 0;
-
-    public string[] levelNames = new string[2] { "dont know yet", "dont know yet" };
-
+    
+    public string[] levelNames = new string[3] {"StartMenu" ,"ExperimentalScene", "museum" };
+    private int NoScenes = 0;
     static LevelSwitch Switch = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        NoScenes = levelNames.Length;
         if (Switch == null) Switch = this;
         else Destroy(this.gameObject);
 
         DontDestroyOnLoad(this.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void loadLevel()
     {
-        if(Input.anyKeyDown)
-        {
-            currLevel = (currLevel + 1) % 2;
-            SteamVR_LoadLevel.Begin(levelNames[currLevel]);
-        }
+        Debug.Log(NoScenes);
+        currLevel = (currLevel + 1) % NoScenes;
+        SteamVR_LoadLevel.Begin(levelNames[currLevel]);
     }
 }
