@@ -7,6 +7,7 @@ using Valve.VR.Extras;
 
 
 [RequireComponent(typeof(SteamVR_LaserPointer))]
+[RequireComponent(typeof(AudioSource))]
 //public class VR_UI_Input : MonoBehaviour
 //{
 //    [SerializeField] private SteamVR_LaserPointer laserPointer;
@@ -25,10 +26,10 @@ using Valve.VR.Extras;
 
 //    private void HandleTriggerClicked(object sender, PointerEventArgs e)
 //    {
-        
+
 //        if (EventSystem.current.currentSelectedGameObject != null)
 //        {
-            
+
 //            ExecuteEvents.Execute(EventSystem.current.currentSelectedGameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
 //        }
 //    }
@@ -59,10 +60,16 @@ public class VR_UI_Input : MonoBehaviour
 {
     private SteamVR_LaserPointer laserPointer;
 
+    //	Sound Fx
+    [SerializeField] private AudioClip enterButton;
+    [SerializeField] private AudioClip exitButton;
+
+    private AudioSource audioSource;
     private void OnEnable()
     {
-        laserPointer = gameObject.GetComponent<SteamVR_LaserPointer>();
-
+        laserPointer = GetComponent<SteamVR_LaserPointer>();
+        audioSource = GetComponent<AudioSource>();
+        
         laserPointer.PointerIn += OnPointerIn;
         laserPointer.PointerOut += OnPointerOut;
         laserPointer.PointerClick += OnPointerClicked;
@@ -87,6 +94,7 @@ public class VR_UI_Input : MonoBehaviour
         {
             return;
         }
+        audioSource.PlayOneShot(enterButton, 0.5f);
         pointerEnterHandler.OnPointerEnter(new PointerEventData(EventSystem.current));
     }
 
@@ -97,6 +105,7 @@ public class VR_UI_Input : MonoBehaviour
         {
             return;
         }
+        audioSource.PlayOneShot(exitButton,1f);
         pointerExitHandler.OnPointerExit(new PointerEventData(EventSystem.current));
     }
 }
