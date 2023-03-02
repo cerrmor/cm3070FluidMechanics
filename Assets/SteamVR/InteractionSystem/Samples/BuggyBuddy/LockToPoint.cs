@@ -7,7 +7,7 @@ namespace Valve.VR.InteractionSystem.Sample
 {
     public class LockToPoint : MonoBehaviour
     {
-        public Transform snapTo;
+        private Transform snapTo;
         private Rigidbody body;
         public float snapTime = 2;
 
@@ -16,6 +16,7 @@ namespace Valve.VR.InteractionSystem.Sample
 
         private void Start()
         {
+            GetSnapPointTransform();
             interactable = GetComponent<Interactable>();
             body = GetComponent<Rigidbody>();
         }
@@ -54,6 +55,19 @@ namespace Valve.VR.InteractionSystem.Sample
                     transform.position = Vector3.Lerp(transform.position, snapTo.position, Time.fixedDeltaTime * t * 3);
                     transform.rotation = Quaternion.Slerp(transform.rotation, snapTo.rotation, Time.fixedDeltaTime * t * 2);
                 }
+            }
+        }
+
+        void GetSnapPointTransform()
+        {
+            GameObject go = GameObject.Find("SnapPoint");
+            if (go != null)
+            {
+                snapTo = go.transform;
+            }
+            else
+            {
+                Debug.Log("SnapPoint not found");
             }
         }
     }

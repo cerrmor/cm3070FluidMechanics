@@ -11,9 +11,16 @@ using UnityEngine.Events;
 namespace Valve.VR.InteractionSystem
 {
     //-------------------------------------------------------------------------
+    [RequireComponent(typeof(AudioSource))]
     [RequireComponent(typeof(Interactable))]
     public class HoverButton : MonoBehaviour
     {
+        //	Sound Fx
+        [SerializeField] private AudioClip buttonDownSoundClip;
+        [SerializeField] private AudioClip buttonUpSoundClip;
+
+        private AudioSource audioSource;
+
         public Transform movingPart;
 
         public Vector3 localMoveDistance = new Vector3(0, -0.1f, 0);
@@ -49,6 +56,7 @@ namespace Valve.VR.InteractionSystem
             startPosition = movingPart.localPosition;
             endPosition = startPosition + localMoveDistance;
             handEnteredPosition = endPosition;
+            audioSource = GetComponent<AudioSource>();
         }
 
         private void HandHoverUpdate(Hand hand)
@@ -101,9 +109,15 @@ namespace Valve.VR.InteractionSystem
             buttonUp = wasEngaged == true && isEngaged == false;
 
             if (buttonDown && onButtonDown != null)
-                onButtonDown.Invoke(lastHoveredHand);
+            {
+                audioSource.PlayOneShot(buttonDownSoundClip, 0.7f);
+                onButtonDown.Invoke(lastHoveredHand); 
+            }
             if (buttonUp && onButtonUp != null)
+            {
+                audioSource.PlayOneShot(buttonUpSoundClip, 0.7f);
                 onButtonUp.Invoke(lastHoveredHand);
+            }
             if (isEngaged && onButtonIsPressed != null)
                 onButtonIsPressed.Invoke(lastHoveredHand);
         }
