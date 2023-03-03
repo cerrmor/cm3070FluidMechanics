@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
     void Awake()
     {
         NoScenes = levelNames.Length;
-        if (instance == null) { instance = this; }
+        if (instance == null) { instance = this; Debug.Log(instance); }
         
         else { Destroy(this.gameObject); }
 
@@ -30,5 +30,13 @@ public class LevelManager : MonoBehaviour
     {
         currLevel = (currLevel + 1) % NoScenes;
         SteamVR_LoadLevel.Begin(levelNames[currLevel]);
+    }
+
+    private void OnTriggerEnter(Collider ChangeScene)
+    {
+        if (ChangeScene.gameObject.CompareTag("MainCamera"))
+        {
+            loadLevel();
+        }
     }
 }
