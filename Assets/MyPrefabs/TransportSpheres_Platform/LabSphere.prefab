@@ -267,6 +267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeDuration: 2
-  Wait_Time: 3
-  SelectLevel: 0
-  Level: 0
+  Wait_Time: 2
+  SelectLevel: 1
+  Level: 2

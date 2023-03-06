@@ -148,7 +148,7 @@ public class ButtonPadController : MonoBehaviour
 
 
         Vector3 initialScale = Vector3.one * 0.01f;
-        Vector3 targetScale = Vector3.one * (0.3f + (Random.value * 0.25f));
+        Vector3 targetScale = Vector3.one * (0.32f );
 
         float startTime = Time.time;
         float overTime = 0.5f;

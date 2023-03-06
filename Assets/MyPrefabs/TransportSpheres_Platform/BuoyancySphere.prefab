@@ -252,8 +252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eafe1c4f43002f4a9ae978daba0d0f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snapPointName: 
   snapTime: 2
-  SnapToPoint: SnapPoint
 --- !u!114 &912934290422402211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,4 +267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeDuration: 2
-  Wait_Time: 3
+  Wait_Time: 2
+  SelectLevel: 1
+  Level: 3
