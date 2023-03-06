@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 7638104662271913976}
   - component: {fileID: 912934290422402211}
   m_Layer: 7
-  m_Name: TransportSphere
+  m_Name: LabSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7310262010288330609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.599012, y: 1.1479669, z: 5.044486}
+  m_LocalPosition: {x: -9.601, y: 1.152, z: 5.044486}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 0}
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: e15ecd04bee26e645aad71994847abec, type: 2}
-  - {fileID: 2100000, guid: 0e44d866f489620469c5c4fa19bfc194, type: 2}
+  - {fileID: 2100000, guid: 6fb02fdb25980a643a8372d78205afd8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Intensity: 1
   Mass: 0.5
-  stiffness: 0.01
+  stiffness: 0.02
   damping: 0.5
 --- !u!114 &7310262010288330612
 MonoBehaviour:
@@ -252,6 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eafe1c4f43002f4a9ae978daba0d0f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snapPointName: SnapPoint
   snapTime: 2
 --- !u!114 &912934290422402211
 MonoBehaviour:
@@ -267,3 +268,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeDuration: 2
   Wait_Time: 3
+  SelectLevel: 0
+  Level: 0

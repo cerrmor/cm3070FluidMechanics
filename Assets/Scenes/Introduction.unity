@@ -5159,7 +5159,7 @@ PrefabInstance:
     - target: {fileID: 97650226701541860, guid: a5399c7e597df1f4c83a4b8a49b2b8fd, type: 3}
       propertyPath: prefab
       value: 
-      objectReference: {fileID: 7310262010288330609, guid: df4b0cba68a8b5746972586d230dfe2e, type: 3}
+      objectReference: {fileID: 7310262010288330609, guid: e8d7d3d07feb16847bd7602e41e56c0a, type: 3}
     - target: {fileID: 97650226701541860, guid: a5399c7e597df1f4c83a4b8a49b2b8fd, type: 3}
       propertyPath: allowMultipleActivations
       value: 0
@@ -25868,5 +25868,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 3D_View
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 4783885679625781173, guid: 3f85ba0052782964398dc5176090408d, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 8400000, guid: 602e8151046b5834f9528cd15327d285, type: 2}
+    m_RemovedComponents:
+    - {fileID: 4783885679625781170, guid: 3f85ba0052782964398dc5176090408d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3f85ba0052782964398dc5176090408d, type: 3}

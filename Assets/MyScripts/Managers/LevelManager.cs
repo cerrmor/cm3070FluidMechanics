@@ -6,8 +6,7 @@ using Valve.VR;
 public class LevelManager : MonoBehaviour
 {
     public int currLevel = 0;
-    
-    public string[] levelNames = new string[4] {"StartMenu" ,"Introduction","ExperimentalScene", "museum" };
+    public string[] levelNames = new string[6] {"StartMenu" ,"Introduction", "ScienceLabHub", "BuoyancyAndDisplacementLab", "ViscosityLab", "Credits" };
     private int NoScenes = 0;
     static LevelManager instance;
  
@@ -31,12 +30,17 @@ public class LevelManager : MonoBehaviour
         currLevel = (currLevel + 1) % NoScenes;
         SteamVR_LoadLevel.Begin(levelNames[currLevel]);
     }
-
-    private void OnTriggerEnter(Collider ChangeScene)
+    public void loadSpecificLevel(int level)
     {
-        if (ChangeScene.gameObject.CompareTag("MainCamera"))
-        {
-            loadLevel();
-        }
+        currLevel = (level) % NoScenes;
+        SteamVR_LoadLevel.Begin(levelNames[currLevel]);
     }
+
+    //private void OnTriggerEnter(Collider ChangeScene)
+    //{
+    //    if (ChangeScene.gameObject.CompareTag("MainCamera"))
+    //    {
+    //        loadLevel();
+    //    }
+    //}
 }

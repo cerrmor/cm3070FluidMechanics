@@ -9,6 +9,7 @@ namespace Valve.VR.InteractionSystem.Sample
     {
         private Transform snapTo;
         private Rigidbody body;
+        [SerializeField] private string snapPointName;
         public float snapTime = 2;
 
         private float dropTimer;
@@ -60,7 +61,7 @@ namespace Valve.VR.InteractionSystem.Sample
 
         void GetSnapPointTransform()
         {
-            GameObject go = GameObject.Find("SnapPoint");
+            GameObject go = GameObject.Find(snapPointName);
             if (go != null)
             {
                 snapTo = go.transform;

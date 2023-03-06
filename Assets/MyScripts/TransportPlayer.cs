@@ -7,6 +7,8 @@ public class TransportPlayer : MonoBehaviour
 {
     [SerializeField] private float fadeDuration = 3f;
     [SerializeField] private float Wait_Time = 3f;
+    [SerializeField] private bool SelectLevel = false;
+    [SerializeField] private int Level = 0;
     
     private void OnTriggerEnter(Collider ChangeScene)
     {
@@ -72,7 +74,8 @@ public class TransportPlayer : MonoBehaviour
     IEnumerator ChangeLevel()
     {
         Debug.Log("the player has changed level");
-        LevelManager.Instance.loadLevel();
+        if(!SelectLevel) LevelManager.Instance.loadLevel();
+        else LevelManager.Instance.loadSpecificLevel(Level);
         yield return null;
     }
 
