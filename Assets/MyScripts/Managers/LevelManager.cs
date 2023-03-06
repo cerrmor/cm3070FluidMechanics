@@ -33,6 +33,9 @@ public class LevelManager : MonoBehaviour
     public void loadSpecificLevel(int level)
     {
         currLevel = (level) % NoScenes;
+        Debug.Log("LOADING LEVEL");
+        Debug.Log(currLevel);
+        Debug.Log(levelNames[currLevel]);
         SteamVR_LoadLevel.Begin(levelNames[currLevel]);
     }
 
