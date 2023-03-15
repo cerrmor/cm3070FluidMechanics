@@ -5,13 +5,14 @@ using UnityEngine.Events;
 using Valve.VR.InteractionSystem;
 using TMPro;
 
-public class ButtonPadController : MonoBehaviour
+public class TransportationSphereSelector : MonoBehaviour
 {
     private Transform snapTo;
 
     //ajustiable array for variable number of buttons
     public HoverButton[] hoverButton;
-    public GameObject prefab;
+    public GameObject prefab1;
+    public GameObject prefab2;
     public bool SpawnTeleportOrb = true;
     public List<int> answersList = new List<int>();
     private List<int> buttonsPressedList = new List<int>();
@@ -21,8 +22,8 @@ public class ButtonPadController : MonoBehaviour
     [SerializeField] private string questionText;
     [SerializeField] private string successText;
     [Header("Button Entry Events")]
-    public UnityEvent onCorrectAnswer;
-    public UnityEvent onIncorrectAnswer;
+    public UnityEvent onButtonPressed;
+    public UnityEvent onOtherButtonPressed;
 
     public bool allowMultipleActivations = false;
     private bool hasUsedCorrectCode = false;
@@ -36,17 +37,17 @@ public class ButtonPadController : MonoBehaviour
 
     void Start()
     {
-        GetSnapPointTransform();
+        GetSnapToPointTransform();
         //creates an event listener for each button in the array
         for (var i = 0; i < hoverButton.Length; i++)
         {
             int tempVar = i;
             //lamda function uses the index element to set the button id
-            hoverButton[i].onButtonDown.AddListener((buttonId) => { OnButtonDown(tempVar); });  
+            hoverButton[i].onButtonDown.AddListener((buttonId) => { OnButtonPressed(tempVar); });  
         }
     }
 
-    private void OnButtonDown(int buttonId)
+    private void OnButtonPressed(int buttonId)
     {
         if (buttonsPressedList.Count >= numCorrectAnswer ) return;
         if (buttonsPressedList.Contains(buttonId)) return;
@@ -61,47 +62,47 @@ public class ButtonPadController : MonoBehaviour
             }
         }
 
-        if (buttonsPressedList.Count >= numCorrectAnswer) checkAnswers();
+        if (buttonsPressedList.Count >= numCorrectAnswer) checkButtonSelected();
     }
 
-    private void checkAnswers()
+    private void checkButtonSelected()
     {
         for(var i = 0; i < answersList.Count; i++)
         {
             if (!answersList.Contains(buttonsPressedList[i]))
             {
-                IncorrectAnswer();
+                SwitchSelection();
                 return;
             }
         }
-        CorrectAnswer();
+        TransportSphereSelected();
     }
 
-    private void CorrectAnswer()
+    private void TransportSphereSelected ()
     {
         if(allowMultipleActivations)
         {
-            onCorrectAnswer.Invoke();
+            onButtonPressed.Invoke();
             displayText.color = Color.yellow;
             displayText.text = successText;
-            StartCoroutine(ResetButtons());
+            StartCoroutine(ResetSelectedButton());
         }
         else if(!allowMultipleActivations && !hasUsedCorrectCode)
         {
-            onCorrectAnswer.Invoke();
+            onButtonPressed.Invoke();
             hasUsedCorrectCode = true;
             displayText.color = Color.yellow;
             displayText.text = successText;
-            if (SpawnTeleportOrb)StartCoroutine(DoTeleportOrb());
+            if (SpawnTeleportOrb)StartCoroutine(TeleportOrb(prefab1));
         }
 
     }
 
-    private void IncorrectAnswer()
+    private void SwitchSelection()
     {
-        onIncorrectAnswer.Invoke();
+        onOtherButtonPressed.Invoke();
         displayText.color = Color.red;
-        StartCoroutine(ResetButtons());
+        StartCoroutine(ResetSelectedButton());
     }
 
     private void ColorSelf(Color newColor,int buttonId)
@@ -110,7 +111,7 @@ public class ButtonPadController : MonoBehaviour
         renderers.material.color = newColor;
     }
 
-    void GetSnapPointTransform()
+    void GetSnapToPointTransform()
     {
         GameObject go = GameObject.Find("SnapPoint");
         if (go != null)
@@ -123,7 +124,7 @@ public class ButtonPadController : MonoBehaviour
         }
     }
 
-    IEnumerator ResetButtons()
+    IEnumerator ResetSelectedButton()
     {
         yield return new WaitForSeconds(resetTime);
         for (int i = 0; i < buttonsPressedList.Count; i++) 
@@ -135,7 +136,7 @@ public class ButtonPadController : MonoBehaviour
         displayText.text = questionText;
     }
 
-    private IEnumerator DoTeleportOrb()
+    private IEnumerator TeleportOrb(GameObject prefab)
     {
         GameObject Orb = GameObject.Instantiate<GameObject>(prefab);
         Orb.transform.position = snapTo.position;

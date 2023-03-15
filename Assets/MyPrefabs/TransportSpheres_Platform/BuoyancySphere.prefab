@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eafe1c4f43002f4a9ae978daba0d0f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapPointName: 
+  snapPointName: SnapPoint2
   snapTime: 2
 --- !u!114 &912934290422402211
 MonoBehaviour:
