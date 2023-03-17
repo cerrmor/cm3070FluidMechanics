@@ -13,6 +13,9 @@ public class TransportationSphereSelector : MonoBehaviour
     public HoverButton[] hoverButton;
     public GameObject prefab1;
     public GameObject prefab2;
+    private List<GameObject> orbList = new List<GameObject>();
+    private bool spawnedOrb1 = false;
+    private bool spawnedOrb2 = false;
     public bool SpawnTeleportOrb = true;
     public List<int> answersList = new List<int>();
     private List<int> buttonsPressedList = new List<int>();
@@ -49,6 +52,9 @@ public class TransportationSphereSelector : MonoBehaviour
 
     private void OnButtonPressed(int buttonId)
     {
+        GameObject temp = null;
+        string orbName = "";
+        int pressedButton = 0;
         if (buttonsPressedList.Count >= numCorrectAnswer ) return;
         if (buttonsPressedList.Contains(buttonId)) return;
         else buttonsPressedList.Add(buttonId);
@@ -59,32 +65,43 @@ public class TransportationSphereSelector : MonoBehaviour
             if (buttonsPressedList[i] == buttonId)
             {
                 ColorSelf(Color.cyan,buttonId);
+                if (buttonId == 0)
+                {
+                    orbName = "buoyancy";
+                    temp = prefab1;
+                    pressedButton = buttonId;
+                }
+                else
+                {
+                    orbName = "viscosity";
+                    temp = prefab2;
+                    pressedButton = buttonId;
+                }
             }
         }
 
-        if (buttonsPressedList.Count >= numCorrectAnswer) checkButtonSelected();
+        checkButtonSelected(temp,orbName);
+        //if (buttonsPressedList.Count >= numCorrectAnswer) checkButtonSelected(orb);
     }
 
-    private void checkButtonSelected()
+    private void checkButtonSelected(GameObject prefab,string orbName)
     {
-        for(var i = 0; i < answersList.Count; i++)
-        {
-            if (!answersList.Contains(buttonsPressedList[i]))
-            {
-                SwitchSelection();
-                return;
-            }
-        }
-        TransportSphereSelected();
+        if(orbList.Count >= 1)SwitchSelection(prefab.tag,orbName);
+        TransportSphereSelected(prefab,orbName);
     }
 
-    private void TransportSphereSelected ()
+    private void TransportSphereSelected (GameObject prefab, string orbName)
     {
         if(allowMultipleActivations)
         {
             onButtonPressed.Invoke();
             displayText.color = Color.yellow;
             displayText.text = successText;
+            
+            if (prefab == prefab1 && !spawnedOrb1) StartCoroutine(TeleportOrb(prefab));
+            else if (prefab == prefab2 && !spawnedOrb2) StartCoroutine(TeleportOrb(prefab));
+            //if (orbList.Count >= 2 && (spawnedOrb1 || spawnedOrb2)) SwitchSelection(prefab.tag, orbName);
+
             StartCoroutine(ResetSelectedButton());
         }
         else if(!allowMultipleActivations && !hasUsedCorrectCode)
@@ -93,16 +110,25 @@ public class TransportationSphereSelector : MonoBehaviour
             hasUsedCorrectCode = true;
             displayText.color = Color.yellow;
             displayText.text = successText;
-            if (SpawnTeleportOrb)StartCoroutine(TeleportOrb(prefab1));
+            if (SpawnTeleportOrb)StartCoroutine(TeleportOrb(prefab));
         }
 
     }
 
-    private void SwitchSelection()
+    private void SwitchSelection(string orb1,string orb2)
     {
-        onOtherButtonPressed.Invoke();
-        displayText.color = Color.red;
-        StartCoroutine(ResetSelectedButton());
+        for(var i = 0; i < orbList.Count; i++)
+        {
+            if (orbList[i].CompareTag(orb2))
+            {
+                if (orbList[i].activeSelf) orbList[i].SetActive(!orbList[i].activeSelf);
+            }
+
+            else if (orbList[i].CompareTag(orb1))
+            {
+               if (!orbList[i].activeSelf) orbList[i].SetActive(!orbList[i].activeSelf);
+            }
+        }
     }
 
     private void ColorSelf(Color newColor,int buttonId)
@@ -138,11 +164,14 @@ public class TransportationSphereSelector : MonoBehaviour
 
     private IEnumerator TeleportOrb(GameObject prefab)
     {
+        if (prefab == prefab1) spawnedOrb1 = true;
+        else if (prefab == prefab2) spawnedOrb2 = true;
         GameObject Orb = GameObject.Instantiate<GameObject>(prefab);
+       
         Orb.transform.position = snapTo.position;
         Orb.transform.rotation = Quaternion.Euler(0, Random.value * 360f, 0);
 
-        
+        orbList.Add(Orb);
 
         Rigidbody rigidbody = Orb.GetComponent<Rigidbody>();
         if (rigidbody != null)
@@ -165,6 +194,7 @@ public class TransportationSphereSelector : MonoBehaviour
 
         if (rigidbody != null)
             rigidbody.isKinematic = false;
+       
     }
 }
 
