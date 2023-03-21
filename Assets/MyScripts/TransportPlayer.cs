@@ -12,7 +12,6 @@ public class TransportPlayer : MonoBehaviour
     
     private void OnTriggerEnter(Collider ChangeScene)
     {
-        
         if (ChangeScene.gameObject.CompareTag("MainCamera"))
         {
             StartCoroutine(StartCounting());
@@ -33,19 +32,11 @@ public class TransportPlayer : MonoBehaviour
 
     private void FadeToBlack()
     {
-        //set start color
-        //SteamVR_Fade.Start(Color.clear, 0f);
         SteamVR_Fade.View(Color.black, fadeDuration);
-        //set and start fade to
-        //SteamVR_Fade.Start(Color.black, fadeDuration);
     }
     private void FadeFromW()
     {
-        //set start color
-        //SteamVR_Fade.Start(Color.clear, 0f);
         SteamVR_Fade.View(Color.clear, 0f);
-        //set and start fade to
-        //SteamVR_Fade.Start(Color.clear, fadeDuration);
     }
 
     IEnumerator StartCounting()
@@ -68,7 +59,6 @@ public class TransportPlayer : MonoBehaviour
             }
             yield return null;
         }
-
     }
 
     IEnumerator ChangeLevel()
