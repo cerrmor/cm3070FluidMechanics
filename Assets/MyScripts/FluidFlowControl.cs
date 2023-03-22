@@ -30,13 +30,12 @@ public class FluidFlowControl : MonoBehaviour
         emitter.speed = 0.0f;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (drive != null && num != map(drive.outAngle, 0.0f, 45.0f, 0.0f, FluidFlowSpeed))
         {
             num = map(drive.outAngle, 0.0f, 45.0f, 0.0f, FluidFlowSpeed);
             emitter.speed = num;
-            Debug.Log(num);
         }
     }
     private float map(float from, float fromMin, float fromMax, float toMin, float toMax)
