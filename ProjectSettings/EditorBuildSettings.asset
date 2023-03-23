@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 0a0dcf8d7a7af984591872b800ee9d88
+  - enabled: 1
+    path: Assets/Scenes/Credits 1.unity
+    guid: ade68612bd7fa994eba2af872b8f6228
   m_configObjects:
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: f8d214ab432ecd94087755f140b1f820, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: bb6af6621080d854fbe798aa69b89f6f, type: 2}

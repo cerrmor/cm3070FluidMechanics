@@ -6,7 +6,7 @@ using Valve.VR;
 public class LevelManager : MonoBehaviour
 {
     public int currLevel = 0;
-    public string[] levelNames = new string[6] {"StartMenu" ,"Introduction", "ScienceLabHub", "BuoyancyAndDisplacementLab", "ViscosityLab", "Credits" };
+    public string[] levelNames = new string[7] {"StartMenu" ,"Introduction", "ScienceLabHub", "BuoyancyAndDisplacementLab", "ViscosityLab", "Credits", "Credits 1" };
     private int NoScenes = 0;
     static LevelManager instance;
  
