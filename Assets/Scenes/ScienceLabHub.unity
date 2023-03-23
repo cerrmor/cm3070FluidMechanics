@@ -18356,6 +18356,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7310262010288330609, guid: a003c02713bc3cf44b6d3dc7663875dc, type: 3}
     - target: {fileID: 97650226701541860, guid: a5399c7e597df1f4c83a4b8a49b2b8fd, type: 3}
+      propertyPath: successText
+      value: Congratulations Door and Teleport Orb Unlocked...
+      objectReference: {fileID: 0}
+    - target: {fileID: 97650226701541860, guid: a5399c7e597df1f4c83a4b8a49b2b8fd, type: 3}
       propertyPath: allowMultipleActivations
       value: 0
       objectReference: {fileID: 0}
