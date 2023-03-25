@@ -43,9 +43,10 @@ GameObject:
   - component: {fileID: 33114246090542196}
   - component: {fileID: 23002993696875794}
   - component: {fileID: 65217605061145152}
+  - component: {fileID: 3770130478604626784}
   m_Layer: 0
   m_Name: Floor_Square_01
-  m_TagString: Untagged
+  m_TagString: killer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -127,6 +128,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 4.000001, z: 0}
   m_Center: {x: 2, y: 2.0000005, z: 0}
+--- !u!114 &3770130478604626784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651469002730486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 65217605061145152}
+  m_DistanceField: {fileID: 0}
 --- !u!1 &7464853078880587832
 GameObject:
   m_ObjectHideFlags: 0
