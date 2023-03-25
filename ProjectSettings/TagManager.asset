@@ -7,6 +7,10 @@ TagManager:
   - killer
   - projectile
   - FxTemporaire
+  - buoyancy
+  - viscosity
+  - credits
+  - lab
   layers:
   - Default
   - TransparentFX
@@ -15,12 +19,12 @@ TagManager:
   - Water
   - UI
   - Characters
+  - Orb
+  - toilet
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - SceneView1
+  - SceneView2
+  - SceneView3
   - 
   - 
   - 
